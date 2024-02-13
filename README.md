@@ -7,8 +7,7 @@
 </div>
 
 <div style="text-align:center">
-  <img src="8_setsections.tiff" alt="Sythetic stratigraphy built from timeseries of topographic surfaces to test Paola & Borgman (1991) theory for reconstructing surface 
-morphology from the preserved stratigraphy" width="600"/>
+  <img src="8_setsections.tiff" alt="Deepest scours correspond to zones of erosion at channel-belt margins and channel-thread confluences within the channel belt" width="600"/>
   <p>Figure 2: Deepest scours correspond to zones of erosion at channel-belt margins and channel-thread confluences within the channel belt</p>
 </div>
 
