@@ -7,7 +7,7 @@
 </div>
 
 <div style="text-align:center">
-  <img src="8_setsections.tiff" alt="Deepest scours correspond to zones of erosion at channel-belt margins and channel-thread confluences within the channel belt" width="600"/>
+  <img src="8_setsections.png" alt="Deepest scours correspond to zones of erosion at channel-belt margins and channel-thread confluences within the channel belt" width="600"/>
   <p>Figure 2: Deepest scours correspond to zones of erosion at channel-belt margins and channel-thread confluences within the channel belt</p>
 </div>
 
