@@ -557,3 +557,149 @@ ylim([0.2 0.7])
 
 %% calculating set thickness for braiding 
 setRun = calculateSet(1, [007, 032]) % Run 1
+
+%% plotting the strat record
+%Function to load Robert's data and visualize 
+%load data
+
+% converting to Roberts data demo 
+timeHours=cell2mat(timeHours');
+horz_raw=cell2mat(horz_raw);
+Depth=horz_raw.';
+xPosclip=loc_y{1}; 
+time = timeHours(2:end);
+x = abs(xPosclip-xPosclip(1));
+Z = Depth;
+Z = fliplr(Z); %comment out for working with Guala data
+dx = mean(diff(x));
+dt = mean(diff(time));
+nt=numel(time);
+newRow=-1.555*ones(1, size(Z,2)); % add new row 
+Z=vertcat(newRow,Z);
+
+% plot section
+nt=numel(time);
+smpInterval = 1;
+figure('Position',[100,100,800,1200]);
+subplot(4,1,4)
+[S,Z_braid]=plot_Section(Z,x,smpInterval);
+hold on 
+plot(x, Z_braid(5,:),'LineWidth', 2, 'Color', 'k')
+title('Run 4')
+%xlabel('Cross Stream Distance (m)')
+%ylabel('Stratigraphic Surface Elevation (m)')
+xlim([0.7 1.8])
+ylim([-1.425 -1.39])
+mycolormap = customcolormap([0 .25 .5 .75 1], {'#9d0142','#f66e45','#ffffbb','#65c0ae','#5e4f9f'});
+cb=colorbar();
+colormap(mycolormap);
+cb.YTick=[1 size(Zlid,2)];
+dimt=round(((15*3600)*9.8*(0.00042^2))/(0.00012*(0.02^(2/3))));
+cb.YTickLabel={'0', num2str(dimt)}; %dimensionless time 
+title(cb, 't*')
+%saveas(gcf,'setsections.fig')
+[ax1,h1]=suplabel('Cross Stream Distance (m)');
+[ax2,h2]=suplabel('Stratigraphic Surface Elevation (m)','y');
+% plot section 
+figure
+subplot(4,1,1)
+[F,hsrf,hlyr]=section(S(1:smpInterval:end,:),[],x);
+subplot(2,1,2)
+[F,hsrf]=sectioncol(S(1:smpInterval:end,:),[],x);
+
+x1=channelbelt1(end);
+x2=channelbelt2(end);
+% plot set thickness  
+diff_S=S(:,x1:x2);
+diff_S=diff(diff_S);
+diff_S(diff_S == 0) = NaN;
+figure
+boxplot(diff_S.')
+set(gca, 'fontsize', 15)
+ylabel('set thickness (m)')
+xlabel('time (hours)') 
+%% plot top 75 percent of scours
+
+[file_list, path_n]= uigetfile('.mat', 'grab the files', 'MultiSelect', 'on')
+
+% get the file paths
+if iscell(file_list) == 0 
+    file_list = (file_list); 
+end
+
+data_in=load([path_n, file_list], 'data');
+loc_x=data_in.data.xVec; 
+loc_y=data_in.data.yVec;
+loc_z=data_in.data.elevationMasked;
+loc_zd=data_in.data.elevationMaskedDetrended;
+loc_zraw=data_in.data.elevationRaw;
+clean=find(all(isnan(loc_z),1)); %columns with all NaNs
+loc_zraw(:,clean)=[];
+loc_zd(:,clean)=[];
+loc_z(:,clean)=[];
+loc_x(clean)=[];
+
+[Zlid] = scourspace(loc_z,loc_zraw,loc_x);
+Zlid(isnan(Zlid)) = [];
+Zlid75(isnan(Zlid75))=0;
+Zlid75(Zlid75<0)=1;
+blue = cat(3, zeros(size(loc_zd)), zeros(size(loc_zd)), zeros(size(loc_zd))+0.5);
+
+figure(1)
+a(1)=subplot(4,2,5)
+b=imagesc(loc_x,loc_y,loc_zd.*1000)
+pos1 = get(a,'Position');
+colormap gray
+caxis([-5 5])
+set(b, 'AlphaData', ~isnan(loc_zd))
+hold on 
+h=imagesc(loc_x, loc_y, blue)
+set(h, 'AlphaData', Zlid75)
+hold off
+ylabel('Distance (m)')
+xlim([18 34])
+ylim([0.5 2.5])
+%c=colorbar('Northoutside')
+%c.Label.String='Detrended Elevation (mm)'
+set(a(1),'Position',pos1)
+%xlabel('Distance (m)')
+
+subplot(4,2,2)
+b=imagesc(loc_x,loc_y,loc_zd.*1000)
+colormap gray
+caxis([-5 5])
+set(b, 'AlphaData', ~isnan(loc_zd))
+hold on 
+h=imagesc(loc_x, loc_y, blue)
+set(h, 'AlphaData', Zlid75)
+hold off
+ylabel('Distance (m)')
+xlim([18 34])
+ylim([0.5 2.5])
+
+subplot(4,1,3)
+b=imagesc(loc_x,loc_y,loc_zd.*1000)
+colormap gray
+caxis([-5 5])
+set(b, 'AlphaData', ~isnan(loc_zd))
+hold on 
+h=imagesc(loc_x, loc_y, blue)
+set(h, 'AlphaData', Zlid75)
+hold off
+ylabel('Distance (m)')
+xlim([18 34])
+ylim([0.5 2.5])
+
+subplot(4,1,4)
+b=imagesc(loc_x,loc_y,loc_zd.*1000)
+colormap gray
+caxis([-5 5])
+set(b, 'AlphaData', ~isnan(loc_zd))
+hold on 
+h=imagesc(loc_x, loc_y, blue)
+set(h, 'AlphaData', Zlid75)
+hold off
+ylabel('Distance (m)')
+xlim([18 34])
+ylim([0.5 2.5])
+xlabel('Distance (m)')
