@@ -7,8 +7,8 @@
 </div>
 
 <div style="text-align:center">
-  <img src="8_setsections.png" alt="Deepest scours correspond to zones of erosion at channel-belt margins and channel-thread confluences within the channel belt" width="400"/>
-  <p>Figure 2: Deepest scours correspond to zones of erosion at channel-belt margins and channel-thread confluences within the channel belt</p>
+  <img src="8_setsections.png" alt="Synthetic stratigraphic section generated from stacked DEMs, clipped for erosion. Deposits are colored by dimensionless time of deposition. " width="400"/>
+  <p>Figure 2: CSynthetic stratigraphic section generated from stacked DEMs, clipped for erosion. Deposits are colored by dimensionless time of deposition. </p>
 </div>
 
 
