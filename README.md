@@ -8,7 +8,7 @@
 
 <div style="text-align:center">
   <img src="8_setsections.png" alt="Synthetic stratigraphic section generated from stacked DEMs, clipped for erosion. Deposits are colored by dimensionless time of deposition. " width="400"/>
-  <p>Figure 2: CSynthetic stratigraphic section generated from stacked DEMs, clipped for erosion. Deposits are colored by dimensionless time of deposition. </p>
+  <p>Figure 2: Synthetic stratigraphic section generated from stacked DEMs, clipped for erosion. Deposits are colored by dimensionless time of deposition. </p>
 </div>
 
 
